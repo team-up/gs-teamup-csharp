@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gs_teamup_chat
+namespace GsTeamupChat
 {
     class TeamupEventList
     {

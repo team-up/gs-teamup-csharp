@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-namespace gs_teamup_chat
+namespace GsTeamupChat
 {
     class Oauth2Template
     {
@@ -22,10 +22,10 @@ namespace gs_teamup_chat
 
         internal static Oauth2Token oauth2Token { get; set; }
 
-        public Oauth2Token getToken() {
+        public Oauth2Token GetToken() {
             if (oauth2Token == null)
             {
-                RestClient client = new RestClient("https://auth.tmup.com");
+                RestClient client = new RestClient(authUrl);
 
                 var request = new RestRequest("/oauth2/token", Method.POST);
                 request.AddParameter("grant_type", "password");

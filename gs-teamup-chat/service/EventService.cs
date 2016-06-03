@@ -6,24 +6,26 @@ using System.Threading.Tasks;
 using RestSharp;
 using System.Net;
 using Newtonsoft.Json;
+using System.Configuration;
 
-namespace gs_teamup_chat
+namespace GsTeamupChat
 {
     class EventService
     {
-        Oauth2Template template = new Oauth2Template();
-        ChatService chatService = new ChatService();
+        private string eventUrl = ConfigurationManager.AppSettings["eventUrl"];
+        private Oauth2Template template = new Oauth2Template();
+        private ChatService chatService = new ChatService();
 
-        public TeamupEventList polling()
+        public TeamupEventList Polling()
         {
-            Oauth2Token token = template.getToken();
+            Oauth2Token token = template.GetToken();
 
             if (token == null)
             {
                 return null;
             }
 
-            RestClient client = new RestClient("https://ev.tmup.com/");
+            RestClient client = new RestClient(eventUrl);
 
             var request = new RestRequest("/v1/events", Method.GET);
 
@@ -42,11 +44,11 @@ namespace gs_teamup_chat
             return null;
         }
 
-        public void actionEvent(TeamupEvent ev) {
+        public void ActionEvent(TeamupEvent ev) {
             switch (ev.type)
             {
                 case "chat.message":
-                    chatService.acceptChat(ev);
+                    chatService.AcceptChat(ev);
                     break;
                 // do other event case
                 default:

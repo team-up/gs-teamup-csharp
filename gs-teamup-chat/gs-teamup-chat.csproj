@@ -7,7 +7,7 @@
     <ProjectGuid>{CF7C7078-0545-4BB6-936C-2D2475F60701}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>gs_teamup_chat</RootNamespace>
+    <RootNamespace>GsTeamupChat</RootNamespace>
     <AssemblyName>gs-teamup-chat</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

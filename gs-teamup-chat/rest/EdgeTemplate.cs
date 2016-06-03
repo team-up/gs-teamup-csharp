@@ -8,38 +8,38 @@ using System.Net;
 using RestSharp;
 using System.Configuration;
 
-namespace gs_teamup_chat
+namespace GsTeamupChat
 {
     class EdgeTemplate
     {
         private string edgeUrl = ConfigurationManager.AppSettings["edgeUrl"];
 
-        public ChatMessage getMessage(int room, int msg)
+        public ChatMessage GetMessage(int room, int msg)
         {
-            return get<ChatMessage>("/v1/message/summary/" + room + "/" + msg);
+            return Get<ChatMessage>("/v1/message/summary/" + room + "/" + msg);
         }
 
-        public string getMessageLong(int room, int msg)
+        public string GetMessageLong(int room, int msg)
         {
-            return get<string>("/v1/message/" + room + "/" + msg);
+            return Get<string>("/v1/message/" + room + "/" + msg);
         }
 
-        public void say(int room, string msg)
+        public void Say(int room, string msg)
         {
-            post<MessageResponse>("/v1/message/" + room, new Message(msg));
+            Post<MessageResponse>("/v1/message/" + room, new Message(msg));
         }
 
-        private T post<T>(string url, object data)
+        private T Post<T>(string url, object data)
         {
-            return call<T>(url, data, Method.POST);
+            return Call<T>(url, data, Method.POST);
         }
 
-        private T get<T>(string url) 
+        private T Get<T>(string url) 
         {
-            return call<T>(url, null, Method.GET);
+            return Call<T>(url, null, Method.GET);
         }
 
-        private T call<T>(string url, object data, Method method)
+        private T Call<T>(string url, object data, Method method)
         {
             RestClient client = new RestClient(edgeUrl);
 

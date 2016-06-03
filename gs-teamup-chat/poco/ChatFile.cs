@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace gs_teamup_chat
+namespace GsTeamupChat
 {
     class ChatFile
     {

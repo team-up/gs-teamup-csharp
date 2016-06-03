@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gs_teamup_chat
+namespace GsTeamupChat
 {
     class Oauth2Token
     {
@@ -16,7 +16,7 @@ namespace gs_teamup_chat
         [JsonProperty("refresh_token")]
         internal string refreshToken { get; set; }
 
-        public Boolean isExpired()
+        public Boolean IsExpired()
         {
             return this.expiresIn <= 0;
         }

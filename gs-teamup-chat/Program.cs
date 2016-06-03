@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
 
-namespace gs_teamup_chat
+namespace GsTeamupChat
 {
     class Program
     {
@@ -16,12 +16,12 @@ namespace gs_teamup_chat
             EventService eventService = new EventService();
             while (true)
             {
-                TeamupEventList eventWrap = eventService.polling();
+                TeamupEventList eventWrap = eventService.Polling();
 
                 if (eventWrap != null && eventWrap.events != null && eventWrap.events.Length != 0) {
                     for (int i = 0; i < eventWrap.events.Length; i++)
                     {
-                        eventService.actionEvent(eventWrap.events[i]);
+                        eventService.ActionEvent(eventWrap.events[i]);
                     }
                 }
             }
