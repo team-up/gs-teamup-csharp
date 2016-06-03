@@ -35,10 +35,11 @@ namespace gs_teamup_chat
                 request.AddParameter("password", botPassword);
 
                 IRestResponse response = client.Execute(request);
+                Console.WriteLine("인증정보: " + response.Content);
                 if (HttpStatusCode.OK.Equals(response.StatusCode))
                 {
                     oauth2Token = JsonConvert.DeserializeObject<Oauth2Token>(response.Content);
-                }   
+                }
             }
             return oauth2Token;
         }

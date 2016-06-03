@@ -49,20 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="pojo\ChatEvent.cs" />
-    <Compile Include="pojo\ChatFile.cs" />
-    <Compile Include="pojo\ChatMessage.cs" />
+    <Compile Include="poco\ChatEvent.cs" />
+    <Compile Include="poco\ChatFile.cs" />
+    <Compile Include="poco\ChatMessage.cs" />
     <Compile Include="service\ChatService.cs" />
     <Compile Include="rest\EdgeTemplate.cs" />
     <Compile Include="service\EventService.cs" />
-    <Compile Include="pojo\Message.cs" />
-    <Compile Include="pojo\MessageResponse.cs" />
-    <Compile Include="pojo\Oauth2Token.cs" />
+    <Compile Include="poco\Message.cs" />
+    <Compile Include="poco\MessageResponse.cs" />
+    <Compile Include="poco\Oauth2Token.cs" />
     <Compile Include="rest\Oauth2Template.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="pojo\TeamupEvent.cs" />
-    <Compile Include="pojo\TeamupEventList.cs" />
+    <Compile Include="poco\TeamupEvent.cs" />
+    <Compile Include="poco\TeamupEventList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

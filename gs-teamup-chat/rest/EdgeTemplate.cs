@@ -31,9 +31,19 @@ namespace gs_teamup_chat
 
         private T post<T>(string url, object data)
         {
+            return call<T>(url, data, Method.POST);
+        }
+
+        private T get<T>(string url) 
+        {
+            return call<T>(url, null, Method.GET);
+        }
+
+        private T call<T>(string url, object data, Method method)
+        {
             RestClient client = new RestClient(edgeUrl);
 
-            var request = new RestRequest(url, Method.POST);
+            var request = new RestRequest(url, method);
             request.AddHeader("Authorization", "bearer " + Oauth2Template.oauth2Token.accessToken);
             request.AddHeader("Content-Type", "application/json");
 
@@ -43,23 +53,7 @@ namespace gs_teamup_chat
                 request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
                 request.RequestFormat = DataFormat.Json;
             }
-            IRestResponse response = client.Execute(request);
 
-            if (HttpStatusCode.OK.Equals(response.StatusCode))
-            {
-                return JsonConvert.DeserializeObject<T>(response.Content);
-            }
-
-            return default(T);
-        }
-
-        private T get<T>(string url) {
-            RestClient client = new RestClient(edgeUrl);
-
-            var request = new RestRequest(url, Method.GET);
-            request.AddHeader("Authorization", "bearer " + Oauth2Template.oauth2Token.accessToken);
-            request.AddHeader("Content-Type", "application/json");
-            
             IRestResponse response = client.Execute(request);
 
             if (HttpStatusCode.OK.Equals(response.StatusCode))
