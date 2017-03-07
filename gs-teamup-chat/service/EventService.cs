@@ -31,7 +31,7 @@ namespace GsTeamupChat
 
             request.AddHeader("Authorization", "bearer " + token.accessToken);
             request.AddHeader("Content-Type", "application/json");
-            request.Timeout = 1000 * 10;
+            request.Timeout = 1000 * 35;
 
             IRestResponse response = client.Execute(request);
             
