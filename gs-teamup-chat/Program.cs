@@ -16,12 +16,27 @@ namespace GsTeamupChat
             EventService eventService = new EventService();
             while (true)
             {
-                TeamupEventList eventWrap = eventService.Polling();
+                EventInfo eventInfo = eventService.getInfo();
+                if (eventInfo == null)
+                {
+                    Console.WriteLine("ev 정보를 받아올 수 없습니다.");
+                    System.Threading.Thread.Sleep(1000 * 5);
+                    continue;
+                }
+                for (int i = 0; i < 86400 / (eventInfo.lpWaitTimeout + 5) + 1; i++)
+                {
+                    TeamupEventList eventWrap = eventService.Polling((eventInfo.lpWaitTimeout + 5) * 1000);
 
-                if (eventWrap != null && eventWrap.events != null && eventWrap.events.Length != 0) {
-                    for (int i = 0; i < eventWrap.events.Length; i++)
+                    if (eventWrap != null && eventWrap.events != null && eventWrap.events.Length != 0)
                     {
-                        eventService.ActionEvent(eventWrap.events[i]);
+                        for (int j = 0; j < eventWrap.events.Length; j++)
+                        {
+                            eventService.ActionEvent(eventWrap.events[j]);
+                        }
+                    }
+                    else
+                    {
+                        System.Threading.Thread.Sleep(eventInfo.lpIdleTime * 1000);
                     }
                 }
             }

@@ -15,10 +15,10 @@ namespace GsTeamupChat
         internal int expiresIn { get; set; }
         [JsonProperty("refresh_token")]
         internal string refreshToken { get; set; }
-
+        internal DateTime expireDate { get; set; }
         public Boolean IsExpired()
         {
-            return this.expiresIn <= 0;
+            return DateTime.Now > expireDate;
         }
     }
 }

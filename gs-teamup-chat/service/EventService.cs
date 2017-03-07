@@ -16,7 +16,26 @@ namespace GsTeamupChat
         private Oauth2Template template = new Oauth2Template();
         private ChatService chatService = new ChatService();
 
-        public TeamupEventList Polling()
+        public EventInfo getInfo()
+        {
+            RestClient client = new RestClient(eventUrl);
+
+            var request = new RestRequest("/");
+            IRestResponse response = client.Get(request);
+            if (HttpStatusCode.OK.Equals(response.StatusCode))
+            {
+                EventInfo eventInfo = JsonConvert.DeserializeObject<EventInfo>(response.Content);
+                return eventInfo;
+            }
+            else if ((int)response.StatusCode / 100 == 4)
+            {
+                throw new System.AggregateException();
+            }
+
+            return null;
+        }
+
+        public TeamupEventList Polling(int timeout)
         {
             Oauth2Token token = template.GetToken();
 
@@ -31,7 +50,7 @@ namespace GsTeamupChat
 
             request.AddHeader("Authorization", "bearer " + token.accessToken);
             request.AddHeader("Content-Type", "application/json");
-            request.Timeout = 1000 * 35;
+            request.Timeout = timeout;
 
             IRestResponse response = client.Execute(request);
             
@@ -44,7 +63,8 @@ namespace GsTeamupChat
             return null;
         }
 
-        public void ActionEvent(TeamupEvent ev) {
+        public void ActionEvent(TeamupEvent ev)
+        {
             switch (ev.type)
             {
                 case "chat.message":

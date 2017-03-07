@@ -52,6 +52,7 @@
     <Compile Include="poco\ChatEvent.cs" />
     <Compile Include="poco\ChatFile.cs" />
     <Compile Include="poco\ChatMessage.cs" />
+    <Compile Include="poco\EventInfo.cs" />
     <Compile Include="service\ChatService.cs" />
     <Compile Include="rest\EdgeTemplate.cs" />
     <Compile Include="service\EventService.cs" />

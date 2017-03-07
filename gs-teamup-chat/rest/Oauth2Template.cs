@@ -22,7 +22,12 @@ namespace GsTeamupChat
 
         internal static Oauth2Token oauth2Token { get; set; }
 
-        public Oauth2Token GetToken() {
+        public Oauth2Token GetToken()
+        {
+            if (oauth2Token != null && oauth2Token.IsExpired())
+            {
+                oauth2Token = null;
+            }
             if (oauth2Token == null)
             {
                 RestClient client = new RestClient(authUrl);
@@ -39,6 +44,7 @@ namespace GsTeamupChat
                 if (HttpStatusCode.OK.Equals(response.StatusCode))
                 {
                     oauth2Token = JsonConvert.DeserializeObject<Oauth2Token>(response.Content);
+                    oauth2Token.expireDate = DateTime.Now.AddSeconds(oauth2Token.expiresIn);
                 }
             }
             return oauth2Token;
