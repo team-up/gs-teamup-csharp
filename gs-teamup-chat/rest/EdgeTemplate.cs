@@ -21,7 +21,7 @@ namespace GsTeamupChat
 
         public string GetMessageLong(long room, long msg)
         {
-            return Get<string>("/v3/message/" + room + "/" + msg);
+            return Get<String>("/v3/message/" + room + "/" + msg);
         }
 
         public void Say(long room, string msg)
@@ -55,10 +55,16 @@ namespace GsTeamupChat
             }
 
             IRestResponse response = client.Execute(request);
-
             if (HttpStatusCode.OK.Equals(response.StatusCode))
             {
-                return JsonConvert.DeserializeObject<T>(response.Content);
+                try
+                {
+                    return JsonConvert.DeserializeObject<T>(response.Content);
+                }
+                catch (JsonReaderException e)
+                {
+                    return (T)Convert.ChangeType(response.Content, typeof(T));
+                }
             }
 
             return default(T);
