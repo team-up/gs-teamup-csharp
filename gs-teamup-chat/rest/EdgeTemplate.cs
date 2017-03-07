@@ -14,19 +14,19 @@ namespace GsTeamupChat
     {
         private string edgeUrl = ConfigurationManager.AppSettings["edgeUrl"];
 
-        public ChatMessage GetMessage(int room, int msg)
+        public ChatMessage GetMessage(long room, long msg)
         {
-            return Get<ChatMessage>("/v1/message/summary/" + room + "/" + msg);
+            return Get<ChatMessage>("/v3/message/summary/" + room + "/" + msg);
         }
 
-        public string GetMessageLong(int room, int msg)
+        public string GetMessageLong(long room, long msg)
         {
-            return Get<string>("/v1/message/" + room + "/" + msg);
+            return Get<string>("/v3/message/" + room + "/" + msg);
         }
 
-        public void Say(int room, string msg)
+        public void Say(long room, string msg)
         {
-            Post<MessageResponse>("/v1/message/" + room, new Message(msg));
+            Post<MessageResponse>("/v3/message/" + room, new Message(msg));
         }
 
         private T Post<T>(string url, object data)

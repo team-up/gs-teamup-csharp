@@ -25,7 +25,7 @@ namespace GsTeamupChat
             SendResponseChat(chatMessage, ev.chat.room);
         }
 
-        public void SendResponseChat(ChatMessage chatMessage, int room)
+        public void SendResponseChat(ChatMessage chatMessage, long room)
         {
             string msg = "";
             switch (chatMessage.type)

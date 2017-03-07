@@ -46,7 +46,7 @@ namespace GsTeamupChat
 
             RestClient client = new RestClient(eventUrl);
 
-            var request = new RestRequest("/v1/events", Method.GET);
+            var request = new RestRequest("/v3/events", Method.GET);
 
             request.AddHeader("Authorization", "bearer " + token.accessToken);
             request.AddHeader("Content-Type", "application/json");

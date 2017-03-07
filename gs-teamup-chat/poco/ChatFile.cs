@@ -10,16 +10,14 @@ namespace GsTeamupChat
     class ChatFile
     {
         [JsonProperty]
-        internal int file { get; set; }
+        internal String id { get; set; }
         [JsonProperty]
-        internal int type { get; set; }
+        internal FileType type { get; set; }
         [JsonProperty]
         internal string name { get; set; }
         [JsonProperty]
-        internal int w { get; set; }
+        internal long size { get; set; }
         [JsonProperty]
-        internal int h { get; set; }
-        [JsonProperty]
-        internal int size { get; set; }
+        internal int owner { get; set; }
     }
 }

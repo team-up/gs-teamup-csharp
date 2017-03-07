@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace GsTeamupChat
 {
-    class MessageResponse
+    public enum FileType
     {
-        [JsonProperty]
-        private long msg { get; set; }
+        normal, image, video
     }
 }
