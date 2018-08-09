@@ -1,59 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GsTeamupChat
 {
     class ChatService
     {
-        EdgeTemplate edgeTemplate = new EdgeTemplate();
+        protected EdgeTemplate edgeTemplate = new EdgeTemplate();
+
+        public void AcceptInit(TeamupEvent ev)
+        {
+            OnWelcome(ev.chat.team, ev.chat.user, ev.chat.roomtype, ev.chat.room);
+        }
 
         public void AcceptChat(TeamupEvent ev)
         {
             ChatMessage chatMessage = edgeTemplate.GetMessage(ev.chat.room, ev.chat.msg);
+            if (chatMessage == null)
+                return;
 
-            if (chatMessage.content.Length != chatMessage.len)
-            {
-                string longMessage = edgeTemplate.GetMessageLong(ev.chat.room, ev.chat.msg);
-                if (longMessage != null || longMessage.Length > 0)
-                {
-                    chatMessage.content = longMessage;
-                }
-            }
-            SendResponseChat(chatMessage, ev.chat.room);
+            OnChat(ev.chat.room, chatMessage);
         }
 
-        public void SendResponseChat(ChatMessage chatMessage, long room)
+        public virtual void OnWelcome(long team, long user, int roomtype, long room)
         {
-            string msg = "";
-            switch (chatMessage.type)
-            {
-                case 1:
-                    msg = MakeMessage(chatMessage.content);
-                    break;
-                default:
-                    break;
-            }
-            if (msg != "")
-            {
-                edgeTemplate.Say(room, msg);
-            }
+            Button[] message_buttons = new Button[] {
+                        Button.NewUrlInstance("google", "http://www.google.com")
+                    };
+            Button[] scroll_buttons = new Button[] {
+                        Button.NewTextInstance("?", "id_?")
+                    };
+            Button[] bottom_buttons = new Button[] {
+                        Button.NewTextInstance("ping", "id_ping")
+                    };
+            Extra botExtra = Extra.NewInstance(message_buttons, scroll_buttons, Bottom.NewButtonInstance(bottom_buttons));
+            edgeTemplate.Say(room, new Message("안녕하세요.\n저는 샘플봇입니다.", new Extras(botExtra)));
         }
 
-        private string MakeMessage(string msg)
+        public virtual void OnChat(long room, ChatMessage chatMessage)
         {
-            if ("?".Equals(msg) || "help".Equals(msg, StringComparison.OrdinalIgnoreCase))
+            String responseId = chatMessage.GetExtraUserResponseId();
+
+            if (responseId == "id_?" || chatMessage.content == "?")
             {
-                return "안녕하세요 김도움입니다.";
+                edgeTemplate.Say(room, new Message("채팅창에 ping 을 입력해 보세요."));
             }
-            else if ("ping".Equals(msg, StringComparison.OrdinalIgnoreCase))
+            else if (responseId == "id_ping" || chatMessage.content == "ping")
             {
-                return "pong";
+                edgeTemplate.Say(room, new Message("pong"));
             }
-            // 메세지에 맞게 추가하면 됨.
-            return "? 나 help를 이용해주세요";
+            else
+            {
+                edgeTemplate.Say(room, new Message("? 를 입력해 주세요."));
+            }
         }
     }
 }

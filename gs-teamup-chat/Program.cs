@@ -13,10 +13,10 @@ namespace GsTeamupChat
     {
         static void Main(string[] args)
         {
-            EventService eventService = new EventService();
+            EventService eventService = new EventService(new ChatService());
             while (true)
             {
-                EventInfo eventInfo = eventService.getInfo();
+                EventInfo eventInfo = eventService.GetInfo();
                 if (eventInfo == null)
                 {
                     Console.WriteLine("ev 정보를 받아올 수 없습니다.");

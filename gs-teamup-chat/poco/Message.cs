@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace GsTeamupChat
 {
@@ -12,9 +7,13 @@ namespace GsTeamupChat
         [JsonProperty]
         internal string content { get; set; }
 
-        public Message(string msg)
+        [JsonProperty]
+        internal Extras extras { get; set; }
+
+        public Message(string msg, Extras exstras = null)
         {
             this.content = msg;
+            this.extras = exstras;
         }
     }
 }

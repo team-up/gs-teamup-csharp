@@ -2,9 +2,9 @@
 
 namespace GsTeamupChat
 {
-    class MessageResponse
+    class RoomResponse
     {
         [JsonProperty]
-        internal long msg { get; set; }
+        internal long room { get; set; }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace GsTeamupChat
 {
@@ -23,5 +18,16 @@ namespace GsTeamupChat
         internal long created { get; set; }
         [JsonProperty]
 	    internal ChatFile fileinfo { get; set; }
+        [JsonProperty]
+        internal Extras extras { get; set; }
+
+        public string GetExtraUserResponseId()
+        {
+            if (extras == null || extras.extra == null)
+                return "";
+            if (extras.extra.type != "user")
+                return "";
+            return extras.extra.response_id ?? "";
+        }
     }
 }

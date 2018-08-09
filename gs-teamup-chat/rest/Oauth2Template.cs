@@ -10,7 +10,7 @@ using System.Configuration;
 
 namespace GsTeamupChat
 {
-    class Oauth2Template
+    class Oauth2Template : BaseTemplate
     {
         private string authUrl = ConfigurationManager.AppSettings["authUrl"];
 

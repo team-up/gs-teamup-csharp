@@ -14,9 +14,14 @@ namespace GsTeamupChat
     {
         private string eventUrl = ConfigurationManager.AppSettings["eventUrl"];
         private Oauth2Template template = new Oauth2Template();
-        private ChatService chatService = new ChatService();
+        private ChatService chatService = null;
 
-        public EventInfo getInfo()
+        public EventService(ChatService chatService)
+        {
+            this.chatService = chatService;
+        }
+
+        public EventInfo GetInfo()
         {
             RestClient client = new RestClient(eventUrl);
 
@@ -67,10 +72,12 @@ namespace GsTeamupChat
         {
             switch (ev.type)
             {
+                case "chat.initbot":
+                    chatService.AcceptInit(ev);
+                    break;
                 case "chat.message":
                     chatService.AcceptChat(ev);
                     break;
-                // do other event case
                 default:
                     break;
             }
